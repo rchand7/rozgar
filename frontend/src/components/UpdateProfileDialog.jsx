@@ -46,7 +46,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         }
         try {
             setLoading(true);
-            const res = await axios.post(`http://localhost:8000/api/v1/user/profile/update`, formData, {
+            const res = await axios.post(`https://rozgar-yyt2.onrender.com/api/v1/user/profile/update`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },

@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const corsOptions = {
-  origin: 'http://localhost:8000', // Frontend dev URL
+  origin: 'https://rozgar-yyt2.onrender.com', // Frontend dev URL
   credentials: true,
 };
 

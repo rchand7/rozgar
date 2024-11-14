@@ -10,7 +10,7 @@ const useGetAppliedJobs = () => {
     useEffect(()=>{
         const fetchAppliedJobs = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/api/v1/application/get`, {withCredentials:true});
+                const res = await axios.get(`https://rozgar-yyt2.onrender.com/api/v1/application/get`, {withCredentials:true});
                 console.log(res.data);
                 if(res.data.success){
                     dispatch(setAllAppliedJobs(res.data.application));

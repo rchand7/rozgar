@@ -9,7 +9,7 @@ const useGetAllAdminJobs = () => {
     useEffect(()=>{
         const fetchAllAdminJobs = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/api/v1/job/getadminjobs`,{withCredentials:true});
+                const res = await axios.get(`https://rozgar-yyt2.onrender.com/api/v1/job/getadminjobs`,{withCredentials:true});
                 if(res.data.success){
                     dispatch(setAllAdminJobs(res.data.jobs));
                 }
