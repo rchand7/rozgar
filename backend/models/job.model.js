@@ -2,54 +2,51 @@ import mongoose from "mongoose";
 
 const jobSchema = new mongoose.Schema({
     title: {
-        type: mongoose.Schema.Types.Mixed,
-        required: true,
+        type: String,
+        required: true
     },
     description: {
-        type: mongoose.Schema.Types.Mixed,
-        required: true,
+        type: String,
+        required: true
     },
-    requirements: [
-        {
-            type: mongoose.Schema.Types.Mixed,
-        },
-    ],
+    requirements: [{
+        type: String
+    }],
     salary: {
-        type: mongoose.Schema.Types.Mixed, // Allows any type of value
-        required: true,
+        type: Number,
+        required: true
     },
-    experienceLevel: {
-        type: mongoose.Schema.Types.Mixed, // Allows any type of value
-        required: true,
+    experienceLevel:{
+        type:Number,
+        required:true,
     },
     location: {
         type: String,
-        required: true,
+        required: true
     },
     jobType: {
-        type: mongoose.Schema.Types.Mixed,
-        required: true,
+        type: String,
+        required: true
     },
     position: {
-        type: mongoose.Schema.Types.Mixed,
-        required: true,
+        type: Number,
+        required: true
     },
     company: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Company",
-        required: true,
+        ref: 'Company',
+        required: true
     },
     created_by: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
+        ref: 'User',
+        required: true
     },
     applications: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Application",
-        },
-    ],
-}, { timestamps: true });
-
+            ref: 'Application',
+        }
+    ]
+},{timestamps:true});
 export const Job = mongoose.model("Job", jobSchema);
