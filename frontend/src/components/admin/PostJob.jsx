@@ -60,7 +60,7 @@ const PostJob = () => {
         e.preventDefault();
         try {
             setLoading(true); // Set loading state to true while the request is processing
-            const res = await axios.post(`https://http://localhost:8000/api/v1/job/post`, input, {
+            const res = await axios.post(`https://rozgar-yyt2.onrender.com//api/v1/job/post`, input, {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true // Ensure credentials are sent with request
             });
