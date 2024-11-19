@@ -1,25 +1,36 @@
 import jwt from "jsonwebtoken";
 
-const isAuthenticated = async (req, res, next) => {
+const isAuthenticated = (req, res, next) => {
     try {
-        const token = req.cookies.token;
+        // Ensure cookies exist and extract the token
+        const token = req.cookies?.token;
         if (!token) {
             return res.status(401).json({
-                message: "User not authenticated, sign up to https://rozgar-yyt2.onrender.com",
+                message: "User not authenticated. Please sign up at https://rozgar-yyt2.onrender.com",
                 success: false,
-            })
+            });
         }
-        const decode = await jwt.verify(token, process.env.SECRET_KEY);
-        if(!decode){
+
+        // Verify the token
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        if (!decoded) {
             return res.status(401).json({
-                message:"Invalid token",
-                success:false
-            })
-        };
-        req.id = decode.userId;
+                message: "Invalid token.",
+                success: false,
+            });
+        }
+
+        // Attach user ID to the request object
+        req.id = decoded.userId;
         next();
     } catch (error) {
-        console.log(error);
+        // Handle errors gracefully
+        console.error("Authentication Error:", error.message);
+        return res.status(500).json({
+            message: "An error occurred during authentication.",
+            success: false,
+        });
     }
-}
+};
+
 export default isAuthenticated;
