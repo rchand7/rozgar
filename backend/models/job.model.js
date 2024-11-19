@@ -2,16 +2,16 @@ import mongoose from "mongoose";
 
 const jobSchema = new mongoose.Schema({
     title: {
-        type: String,
+        type: mongoose.Schema.Types.Mixed,
         required: true,
     },
     description: {
-        type: String,
+        type: mongoose.Schema.Types.Mixed,
         required: true,
     },
     requirements: [
         {
-            type: String,
+            type: mongoose.Schema.Types.Mixed,
         },
     ],
     salary: {
@@ -27,11 +27,11 @@ const jobSchema = new mongoose.Schema({
         required: true,
     },
     jobType: {
-        type: String,
+        type: mongoose.Schema.Types.Mixed,
         required: true,
     },
     position: {
-        type: Number,
+        type: mongoose.Schema.Types.Mixed,
         required: true,
     },
     company: {
