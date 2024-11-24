@@ -46,7 +46,7 @@ const Signup = () => {
 
         try {
             dispatch(setLoading(true));
-            const res = await axios.post(`https://rozgar-yyt2.onrender.com/api/v1/user/register`, formData, {
+            const res = await axios.post(`${USER_API_END_POINT}/register`, formData, {
                 headers: { 'Content-Type': "multipart/form-data" },
                 withCredentials: true,
             });
@@ -80,7 +80,7 @@ const Signup = () => {
                             value={input.fullname}
                             name="fullname"
                             onChange={changeEventHandler}
-                            placeholder="Arjun"
+                            placeholder="patel"
                         />
                     </div>
                     <div className='my-2'>
@@ -90,7 +90,7 @@ const Signup = () => {
                             value={input.email}
                             name="email"
                             onChange={changeEventHandler}
-                            placeholder="arjun@gmail.com"
+                            placeholder="patel@gmail.com"
                         />
                     </div>
                     <div className='my-2'>
@@ -100,7 +100,7 @@ const Signup = () => {
                             value={input.phoneNumber}
                             name="phoneNumber"
                             onChange={changeEventHandler}
-                            placeholder="8076708261"
+                            placeholder="8080808080"
                         />
                     </div>
                     <div className='my-2'>
@@ -110,7 +110,7 @@ const Signup = () => {
                             value={input.password}
                             name="password"
                             onChange={changeEventHandler}
-                            placeholder="arjun@gmail.com"
+                            placeholder="patel@gmail.com"
                         />
                     </div>
                     <div className='flex items-center justify-between'>
@@ -119,12 +119,12 @@ const Signup = () => {
                                 <Input
                                     type="radio"
                                     name="role"
-                                    value="Applicant"
-                                    checked={input.role === 'Applicant'}
+                                    value="student"
+                                    checked={input.role === 'student'}
                                     onChange={changeEventHandler}
                                     className="cursor-pointer"
                                 />
-                                <Label htmlFor="r1">Applicant</Label>
+                                <Label htmlFor="r1">Student</Label>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Input
