@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../shared/Navbar'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
-import { RadioGroup } from '../ui/radio-group'
-import { Button } from '../ui/button'
-import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { USER_API_END_POINT } from '@/utils/constant'
-import { toast } from 'sonner'
-import { useDispatch, useSelector } from 'react-redux'
-import { setLoading, setUser } from '@/redux/authSlice'
-import { Loader2 } from 'lucide-react'
+import React, { useEffect, useState } from 'react';
+import Navbar from '../shared/Navbar';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { RadioGroup } from '../ui/radio-group';
+import { Button } from '../ui/button';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'sonner';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoading, setUser } from '@/redux/authSlice';
+import { Loader2 } from 'lucide-react';
 
 const Login = () => {
     const [input, setInput] = useState({
@@ -18,21 +17,25 @@ const Login = () => {
         password: "",
         role: "",
     });
-    const { loading,user } = useSelector(store => store.auth);
+    const { loading, user } = useSelector(store => store.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value });
-    }
+    };
 
     const submitHandler = async (e) => {
         e.preventDefault();
+        if (!input.role) {
+            toast.error("Please select a role");
+            return;
+        }
         try {
             dispatch(setLoading(true));
-            const res = await axios.post(`https://rozgar-yyt2.onrender.com/login', input, {
+            const res = await axios.post(`https://rozgar-yyt2.onrender.com/login`, input, {
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 withCredentials: true,
             });
@@ -43,16 +46,18 @@ const Login = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error(error.response.data.message);
+            toast.error(error.response?.data?.message || "An error occurred. Please try again.");
         } finally {
             dispatch(setLoading(false));
         }
-    }
-    useEffect(()=>{
-        if(user){
+    };
+
+    useEffect(() => {
+        if (user) {
             navigate("/");
         }
-    },[])
+    }, [user, navigate]);
+
     return (
         <div>
             <Navbar />
@@ -60,8 +65,9 @@ const Login = () => {
                 <form onSubmit={submitHandler} className='w-1/2 border border-gray-200 rounded-md p-4 my-10'>
                     <h1 className='font-bold text-xl mb-5'>Login</h1>
                     <div className='my-2'>
-                        <Label>Email</Label>
+                        <Label htmlFor="email">Email</Label>
                         <Input
+                            id="email"
                             type="email"
                             value={input.email}
                             name="email"
@@ -71,13 +77,14 @@ const Login = () => {
                     </div>
 
                     <div className='my-2'>
-                        <Label>Password</Label>
+                        <Label htmlFor="password">Password</Label>
                         <Input
+                            id="password"
                             type="password"
                             value={input.password}
                             name="password"
                             onChange={changeEventHandler}
-                            placeholder="Arjun@gmail.com"
+                            placeholder="Enter your password"
                         />
                     </div>
                     <div className='flex items-center justify-between'>
@@ -113,7 +120,7 @@ const Login = () => {
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;
