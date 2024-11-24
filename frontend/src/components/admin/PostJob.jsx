@@ -67,7 +67,7 @@ const PostJob = () => {
 
         try {
             setLoading(true);
-            const res = await axios.post(`${JOB_API_END_POINT}/job/post`, input, {
+            const res = await axios.post(`https://rozgar-yyt2.onrender.com/job/post`, input, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
