@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
 const isAuthenticated = (req, res, next) => {
     try {
@@ -6,7 +6,7 @@ const isAuthenticated = (req, res, next) => {
         const token = req.cookies?.token;
         if (!token) {
             return res.status(401).json({
-                message: "User not authenticated. Please sign up at https://rozgar-yyt2.onrender.com",
+                message: "User not authenticated. Please sign up at href<link> https://rozgar-yyt2.onrender.com</link>",
                 success: false,
             });
         }
@@ -24,7 +24,15 @@ const isAuthenticated = (req, res, next) => {
         req.id = decoded.userId;
         next();
     } catch (error) {
-        // Handle errors gracefully
+        // Handle specific token error cases
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({
+                message: "Token has expired. Please log in again.",
+                success: false,
+            });
+        }
+
+        // General error handling
         console.error("Authentication Error:", error.message);
         return res.status(500).json({
             message: "An error occurred during authentication.",
