@@ -40,6 +40,10 @@ const PostJob = () => {
         setInput({ ...input, companyId: selectedCompany._id });
     };
 
+    const locationChangeHandler = (value) => {
+        setInput({ ...input, location: value });
+    };
+
     const validateForm = () => {
         let formErrors = {};
         // Check if salary and experience are numeric
@@ -63,7 +67,7 @@ const PostJob = () => {
 
         try {
             setLoading(true);
-            const res = await axios.post(`https://rozgar-yyt2.onrender.com/job/post`, input, {
+            const res = await axios.post(`${JOB_API_END_POINT}/job/post`, input, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -130,13 +134,20 @@ const PostJob = () => {
                         </div>
                         <div>
                             <Label>Location</Label>
-                            <Input
-                                type="text"
-                                name="location"
-                                value={input.location}
-                                onChange={changeEventHandler}
-                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
-                            />
+                            <Select value={input.location} onValueChange={locationChangeHandler}>
+                                <SelectTrigger className="w-[180px]">
+                                    <SelectValue placeholder="Select a Location" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        {validLocations.map((location) => (
+                                            <SelectItem key={location} value={location}>
+                                                {location}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
                             {errors.location && <p className="text-red-600 text-sm">{errors.location}</p>}
                         </div>
                         <div>
@@ -202,7 +213,7 @@ const PostJob = () => {
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default PostJob;
