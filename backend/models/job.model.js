@@ -13,12 +13,26 @@ const jobSchema = new mongoose.Schema({
         type: String
     }],
     salary: {
-        type: Number,
-        required: true
+        type: String, // Changed from Number to String to accept alphanumeric values
+        required: true,
+        validate: {
+            validator: function(value) {
+                // Custom validation to allow both numbers and alphabets
+                return /^[a-zA-Z0-9\s]*$/.test(value);  // Accepts alphanumeric values and spaces
+            },
+            message: 'Salary must be alphanumeric.'
+        }
     },
-    experienceLevel:{
-        type:Number,
-        required:true,
+    experienceLevel: {
+        type: String, // Changed from Number to String to accept alphanumeric values
+        required: true,
+        validate: {
+            validator: function(value) {
+                // Custom validation to allow both numbers and alphabets
+                return /^[a-zA-Z0-9\s]*$/.test(value);  // Accepts alphanumeric values and spaces
+            },
+            message: 'Experience Level must be alphanumeric.'
+        }
     },
     location: {
         type: String,
@@ -48,5 +62,6 @@ const jobSchema = new mongoose.Schema({
             ref: 'Application',
         }
     ]
-},{timestamps:true});
+}, {timestamps: true});
+
 export const Job = mongoose.model("Job", jobSchema);
