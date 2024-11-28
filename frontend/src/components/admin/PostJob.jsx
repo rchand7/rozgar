@@ -1,17 +1,15 @@
-import React, { useState } from 'react'
-import Navbar from '../shared/Navbar'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import { useSelector } from 'react-redux'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
-import axios from 'axios'
-import { JOB_API_END_POINT } from '@/utils/constant'
-import { toast } from 'sonner'
-import { useNavigate } from 'react-router-dom'
-import { Loader2 } from 'lucide-react'
-
-const companyArray = [];
+import React, { useState } from 'react';
+import Navbar from '../shared/Navbar';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { useSelector } from 'react-redux';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import axios from 'axios';
+import { JOB_API_END_POINT } from '@/utils/constant';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
 
 const allowedLocations = ["Delhi NCR", "Bangalore", "Hyderabad", "Pune", "Mumbai"];
 
@@ -27,6 +25,7 @@ const PostJob = () => {
         position: 0,
         companyId: ""
     });
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState({});
     const navigate = useNavigate();
@@ -68,7 +67,7 @@ const PostJob = () => {
         }
         try {
             setLoading(true);
-            const res = await axios.post(`https://rozgar-yyt2.onrender.com/post`, input, {
+            const res = await axios.post(`${JOB_API_END_POINT}/post`, input, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -79,7 +78,7 @@ const PostJob = () => {
                 navigate("/admin/jobs");
             }
         } catch (error) {
-            toast.error(error.response.data.message);
+            toast.error(error.response?.data?.message || "Something went wrong");
         } finally {
             setLoading(false);
         }
